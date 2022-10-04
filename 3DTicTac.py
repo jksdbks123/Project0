@@ -77,11 +77,69 @@ class TicTacToe3D(object):
         self.allowed_moves = list(range(pow(3, 3)))
         self.np_board = self.create_board()
         self.depth_count = 0
-    
+
+    def max(self):
+        maxv = -2
+        px = None
+        py = None
+        pz = None
+        result = is_terminate(self.np_board)
+        if result is None: #Draw
+            return (0,0,0,0)
+        elif result == 1:
+            return (1,0,0,0)
+        elif result == -1:
+            return (-1,0,0,0)
+        
+        player = self.player_2 #1 
+        if self.player_1_turn:
+            player = self.player_1 #-1
+        for i in range(self.np_board.shape[0]):
+            for j in range(self.np_board.shape[1]):
+                for k in range(self.np_board.shape[2]):
+                    if self.np_board[i,j,k] == 0:
+                        self.np_board[i,j,k] = player
+                        self.player_1_turn = ~self.player_1_turn
+                        m,px,py,pz = self.min()
+                        if m > maxv:
+                            maxv = m
+                            px,py,pz = i,j,k
+                        self.np_board[i,j,k] = 0
+
+        return maxv,px,py,pz
+
+                        
+        
     def min(self):
         minv = 2
+        px = None
+        py = None
+        pz = None
         result = is_terminate(self.np_board)
-        if result is not None:
+        if result is None: #Draw
+            return (0,0,0,0)
+        elif result == 1:
+            return (1,0,0,0)
+        elif result == -1:
+            return (-1,0,0,0)
+        
+        player = self.player_2 #1 
+        if self.player_1_turn:
+            player = self.player_1 #-1
+
+        for i in range(self.np_board.shape[0]):
+            for j in range(self.np_board.shape[1]):
+                for k in range(self.np_board.shape[2]):
+                    if self.np_board[i,j,k] == 0:
+                        self.np_board[i,j,k] = player
+                        m,px,py,pz = self.min()
+
+                        if m < minv:
+                            minv = m
+                            px,py,pz = i,j,k
+                        self.np_board[i,j,k] = 0
+
+        return minv,px,py,pz
             
 
     @staticmethod
