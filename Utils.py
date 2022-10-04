@@ -36,7 +36,7 @@ def if_plane_win(test_plane):
 def is_terminate(board_state):
     # Test three dimensional planes
     if (board_state != 0).sum() == 27:
-        return 0
+        return None
     for i in range(board_state.shape[0]):
         test_plane = board_state[i,:,:]
         flag = if_plane_win(test_plane)
@@ -69,7 +69,7 @@ def is_terminate(board_state):
     flag = if_line_win(test_line)
     if flag != 0:
         return flag
-    return None   #draw
+    return 0   #No one wins right now
     
         
         
