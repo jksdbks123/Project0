@@ -186,11 +186,11 @@ class TicTacToe3D(object):
             if flag == self.player_1:
                 print("Player1 Win")
                 return self.np_board, self.player_1
-                break 
+                 
             if flag == self.player_2:
                 print("Player2 Win")
                 return self.np_board, self.player_2
-                break
+                
             if self.player_1_turn:
                 print('Round',Round,'Player1')
                 print(self.np_board)
@@ -223,6 +223,6 @@ if __name__ == '__main__':
                 type=int, default=6
     )
     args = parser.parse_args()
-    brd,winner = TicTacToe3D(player=args.player, ply=6).play_game()
+    brd,winner = TicTacToe3D(player=args.player, ply=7).play_game()
     print("final board: \n{}".format(brd))
     print("winner: player {}".format(winner))
